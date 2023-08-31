@@ -1,8 +1,9 @@
 import { Component } from 'react';
-import { Filter } from '../filter/filter';
+
 import { ContactList } from '../contactList/contactList.jsx';
 import { ContactForm } from '../contactForm/contactForm.jsx';
 import { Container } from './Layout.styled';
+
 export class App extends Component {
   state = {
     contacts: [],
@@ -10,7 +11,6 @@ export class App extends Component {
   };
   componentDidMount() {
     const storage = localStorage.getItem('contacts');
-
     this.setState({ contacts: JSON.parse(storage) ?? [] });
   }
   componentDidUpdate(prevState, nextState) {
@@ -43,29 +43,25 @@ export class App extends Component {
       };
     });
   };
-  onFilter = e => {
-    this.setState({
-      filter: e.target.value,
-    });
-  };
-  getFiltredMassive = () => {
-    return this.state.contacts.filter(item => {
-      const normalize = item.name.toLowerCase();
-      const normalizeTarget = this.state.filter.toLowerCase();
-      return normalize.includes(normalizeTarget);
-    });
-  };
+  // onFilter = e => {
+  //   this.setState({
+  //     filter: e.target.value,
+  //   });
+  // };
+  // getFiltredMassive = () => {
+  //   return this.state.contacts.filter(item => {
+  //     const normalize = item.name.toLowerCase();
+  //     const normalizeTarget = this.state.filter.toLowerCase();
+  //     return normalize.includes(normalizeTarget);
+  //   });
+  // };
   render() {
     return (
       <Container>
         <h1>Phonebook</h1>
         <ContactForm onAddNumber={this.onAddNumber} />
         <h2>Contacts</h2>
-        <Filter onFilter={this.onFilter} />
-        <ContactList
-          contacts={this.getFiltredMassive()}
-          onDelete={this.onDelete}
-        />
+        <ContactList contacts={this.state.contacts} onDelete={this.onDelete} />
       </Container>
     );
   }

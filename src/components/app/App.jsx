@@ -61,7 +61,12 @@ export class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm onAddNumber={this.onAddNumber} />
         <h2>Contacts</h2>
-        <ContactList contacts={this.state.contacts} onDelete={this.onDelete} />
+        {this.state.length > 0 && (
+          <ContactList
+            contacts={this.state.contacts}
+            onDelete={this.onDelete}
+          />
+        )}
       </Container>
     );
   }

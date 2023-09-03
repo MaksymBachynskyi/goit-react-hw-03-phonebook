@@ -10,8 +10,10 @@ export class App extends Component {
     filter: '',
   };
   componentDidMount() {
-    const storage = localStorage.getItem('contacts');
-    this.setState({ contacts: JSON.parse(storage) ?? [] });
+    const storage = JSON.parse(localStorage.getItem('contacts'));
+    if (storage) {
+      this.setState({ contacts: storage });
+    }
   }
   componentDidUpdate(prevState, nextState) {
     if (nextState.contacts !== this.state.contacts) {
@@ -61,7 +63,7 @@ export class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm onAddNumber={this.onAddNumber} />
         <h2>Contacts</h2>
-        {this.state.length > 0 && (
+        {this.state.contacts.length > 0 && (
           <ContactList
             contacts={this.state.contacts}
             onDelete={this.onDelete}

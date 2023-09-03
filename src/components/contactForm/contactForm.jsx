@@ -36,8 +36,8 @@ export const ContactForm = ({ onAddNumber }) => {
         number: '',
       }}
       validationSchema={MyShema}
-      onSubmit={values => {
-        onAddNumber({ id: nanoid(), ...values });
+      onSubmit={(values, { resetForm }) => {
+        onAddNumber({ id: nanoid(), ...values }, resetForm());
       }}
     >
       <StyledForm>

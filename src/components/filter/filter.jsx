@@ -1,8 +1,8 @@
-export const Filter = ({ onFilter }) => {
+export const Filter = ({ onFilter, value }) => {
   return (
     <div>
       <h4>Find contacts by name</h4>
-      <input onChange={onFilter}></input>
+      <input onChange={onFilter} value={value}></input>
     </div>
   );
 };

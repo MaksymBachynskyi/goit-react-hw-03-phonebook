@@ -1,5 +1,5 @@
 import { Component } from 'react';
-
+import { Filter } from 'components/filter/filter.jsx';
 import { ContactList } from '../contactList/contactList.jsx';
 import { ContactForm } from '../contactForm/contactForm.jsx';
 import { Container } from './Layout.styled';
@@ -45,27 +45,28 @@ export class App extends Component {
       };
     });
   };
-  // onFilter = e => {
-  //   this.setState({
-  //     filter: e.target.value,
-  //   });
-  // };
-  // getFiltredMassive = () => {
-  //   return this.state.contacts.filter(item => {
-  //     const normalize = item.name.toLowerCase();
-  //     const normalizeTarget = this.state.filter.toLowerCase();
-  //     return normalize.includes(normalizeTarget);
-  //   });
-  // };
+  onFilter = e => {
+    this.setState({
+      filter: e.target.value,
+    });
+  };
+  getFiltredMassive = () => {
+    return this.state.contacts.filter(item => {
+      const normalize = item.name.toLowerCase();
+      const normalizeTarget = this.state.filter.toLowerCase();
+      return normalize.includes(normalizeTarget);
+    });
+  };
   render() {
     return (
       <Container>
         <h1>Phonebook</h1>
         <ContactForm onAddNumber={this.onAddNumber} />
         <h2>Contacts</h2>
+        <Filter onFilter={this.onFilter} value={this.state.filter} />
         {this.state.contacts.length > 0 && (
           <ContactList
-            contacts={this.state.contacts}
+            contacts={this.getFiltredMassive()}
             onDelete={this.onDelete}
           />
         )}
